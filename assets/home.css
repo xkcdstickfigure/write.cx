@@ -1,0 +1,15 @@
+.write {
+    background: linear-gradient(to bottom right, #C026D3 40%, #1E40AF 60%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dev::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to bottom right, #C026D3 40%, #1E40AF 60%);
+}

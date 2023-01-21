@@ -1,0 +1,29 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background: #111827;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.square {
+    background: #1E40AF;
+    width: 64px;
+    height: 64px;
+    animation: rotate 1s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    
+    to {
+        transform: rotate(90deg);
+    }
+}

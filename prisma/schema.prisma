@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model account {
+  id        String   @id @db.Uuid
+  username  String   @unique
+  password  String
+  name      String
+  email     String   @unique
+  activated Boolean
+  createdAt DateTime @default(now())
+
+  about     String?
+  picture   String?
+  link      String?
+  html      String?
+
+  sessions session[]
+  posts    post[]
+}
+
+model session {
+  id        String   @id @db.Uuid
+  token     String   @unique
+  address   String
+  usedAt    DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  account   account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @db.Uuid
+}
+
+model post {
+  id          String    @id @db.Uuid
+  slug        String
+  title       String?
+  content     String?
+  createdAt   DateTime  @default(now())
+  publishedAt DateTime?
+  deletedAt   DateTime?
+
+  account   account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @db.Uuid
+
+  views view[]
+
+  @@unique([accountId, slug])
+}
+
+model view {
+  address String
+  date    DateTime @default(now())
+
+  post   post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String @db.Uuid
+
+  @@id([postId, address])
+}
